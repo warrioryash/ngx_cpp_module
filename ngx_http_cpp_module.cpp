@@ -146,7 +146,7 @@ class NGINX_PIPELINE{
 
 // Initialize response string
 ngx_str_t NGINX_PIPELINE::NGINX_PIPELINE_STR;
-// Set the main handler function which will handle the HTTP request
+// Set the main handler function which will will BEGIN processing the HTTP request
 ngx_conf_post_handler_pt NGINX_PIPELINE::ngx_http_cpp_p =&NGINX_PIPELINE::ngx_http_cpp;
 
 /* Struct 3 - Module Directives, allowed directives, also set pointer to handler function */
