@@ -1,0 +1,32 @@
+1. Place ngx_http_cpp_module.cpp and config in a folder, say, /etc/nginx/modules/cpp
+
+2. Download and compile NGINX with:
+
+CFLAGS="-g -O0" ./configure --with-http_gzip_static_module  --with-http_stub_status_module --with-http_ssl_module  --with-pcre  --with-file-aio  --with-ipv6  --with-http_realip_module  --with-debug  --with-ld-opt="-lstdc++ -lstdc++fs"  --add-dynamic-module=/etc/nginx/modules/cpp  
+
+3. Edit the configuration file, nginx.conf. If you downloaded and installed NGINX under Ubuntu then this file is located here: /usr/local/nginx/conf/nginx.conf. Place the following right under "http {":
+
+    server {
+       listen 8080;
+       server_name localhost;
+       location / {
+          cpp;
+       }
+
+4. Start NGINX (under Ubuntu, /usr/local/nginx/sbin/nginx). Open http://localhost:8080 in your browser. You should see the GET request "/ HTTP/1.1 Host" Open, http://localhost:8080/test.html. You should see, "/test.html HTTP/1.1 Host"
+
+5. This step is not required, but if you want to add -std=c++11 support or add some other library (e.g. -lstdc++fs), modify the Makefile under the /objs folder of NGINX and recompile:
+
+objs/addon/cpp/ngx_http_cpp_module.o:	$(ADDON_DEPS) \
+	/etc/nginx/modules/cpp/ngx_http_cpp_module.cpp
+	$(CC) -c $(CFLAGS)  $(ALL_INCS) \
+                -g \
+		-o objs/addon/cpp/ngx_http_cpp_module.o \
+                -std=c++11 \
+		/etc/nginx/modules/cpp/ngx_http_cpp_module.cpp -lstdc++fs
+
+
+
+
+
+
