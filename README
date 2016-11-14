@@ -4,7 +4,10 @@
 
 CFLAGS="-g -O0" ./configure --with-http_gzip_static_module  --with-http_stub_status_module --with-http_ssl_module  --with-pcre  --with-file-aio  --with-ipv6  --with-http_realip_module  --with-debug  --with-ld-opt="-lstdc++ -lstdc++fs"  --add-dynamic-module=/etc/nginx/modules/cpp  
 
+make install
+
 Ubuntu users: Install the PCRE and the OpenSSL libraries (sudo apt-get install libpcre3-dev  libssl-dev).
+
 
 3. Edit the configuration file, nginx.conf. If you downloaded and installed NGINX under Ubuntu then this file is located here: /usr/local/nginx/conf/nginx.conf. Place the following right under "http {":
 
